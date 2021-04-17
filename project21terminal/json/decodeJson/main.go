@@ -29,8 +29,7 @@ func decodeJsonStruct() {
 }
 
 func decodeJsonSlice() {
-		var s []map[string]interface{}
-
+	var s []map[string]interface{}
 	jsonStr := "[{\"Name\":\"牛魔王\",\"Age\":34},{\"Name\":\"牛魔王\",\"Age\":34}]";
 	err := json.Unmarshal([]byte(jsonStr),&s)
 	if err != nil {
