@@ -13,7 +13,7 @@ type Monster struct {
 }
 
 func main() {
-	//decodeJsonStruct()
+	decodeJsonStruct()
 	decodeJsonSlice()
 }
 
@@ -25,7 +25,7 @@ func decodeJsonStruct() {
 	if err != nil {
 		fmt.Println("解析失败")
 	}
-	fmt.Println(monster)
+	fmt.Println(monster.Age)
 }
 
 func decodeJsonSlice() {
@@ -35,5 +35,5 @@ func decodeJsonSlice() {
 	if err != nil {
 		fmt.Println("解析失败")
 	}
-	fmt.Println(s)
+	fmt.Println(s[0]["Name"])
 }
