@@ -31,6 +31,8 @@ func main() {
 	time.Sleep(time.Second * 3)
 
 	//遍历打印myMap
+
+
 	lock.Lock()
 	for k, v := range myMap {
 		fmt.Printf("%d= %v\n",k,v)
