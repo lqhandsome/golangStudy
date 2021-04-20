@@ -12,7 +12,6 @@ func test(n int) int {
 		res *= i
 	}
 	myMap[n] = uint64(res)
-	//fmt.Printf("myMap[%d]=%d\n",n,res)
 	return res
 }
 func main() {

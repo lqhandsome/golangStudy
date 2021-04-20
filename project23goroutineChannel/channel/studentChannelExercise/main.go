@@ -3,7 +3,7 @@ package main
 import "fmt"
 var (
 	count = 20
-	i = 0
+	flag = false
 )
 
 func writeChannel(c chan int,isWrite chan  int){
@@ -16,7 +16,11 @@ func writeChannel(c chan int,isWrite chan  int){
 
 func sumChannel(c chan int,r chan int){
 	for  {
-		if i == 20 {
+		if flag {
+			break
+		}
+		if len(r) == 20 {
+			flag = true
 			close(r)
 			break
 		}
@@ -25,10 +29,7 @@ func sumChannel(c chan int,r chan int){
 		for i := 1;i <= v;i++ {
 			res += i
 		}
-		fmt.Println(i)
 		r<-res
-		i++
-		fmt.Println("i=",i)
 
 	}
 }
@@ -46,18 +47,18 @@ func main() {
 	isWrite := make(chan int,1)
 	go writeChannel(numChan,isWrite)
 
+
+	fmt.Println(len(numChan))
+	for i := 0; i < 8; i++ {
+		go sumChannel(numChan,resChan)
+	}
+
 	for  {
 		_,ok := <-isWrite
 		if !ok {
 			break
 		}
 	}
-	fmt.Println(len(numChan))
-	for i := 0; i < 8; i++ {
-		go sumChannel(numChan,resChan)
-	}
-
-
 
 	fmt.Println(len(resChan))
 	i := 1
