@@ -7,7 +7,7 @@ import (
 
 //向管道写入五十个数据后关闭
 func writeData(c chan int) {
-	for i := 1;i <= 50;i++{
+	for i := 1;i <= 10;i++{
 		c<-i
 		fmt.Println("写入数据=",i)
 		time.Sleep(time.Second)
@@ -17,13 +17,16 @@ func writeData(c chan int) {
 
 //读取数据
 func readData(c chan int,exitChan chan bool) {
-	for  {
-		v,i := <-c
-		if !i {
-			break
-		}
+	//for  {
+	//	v,i := <-c
+	//	if !i {
+	//		break
+	//	}
+	//	fmt.Println("读取到数据=",v)
+	//
+	//}
+	for v := range c {
 		fmt.Println("读取到数据=",v)
-
 	}
 	close(exitChan)
 }
@@ -33,10 +36,11 @@ func main() {
 	intData := make(chan int,10)
 	exitData := make(chan bool,1)
 	go  writeData(intData)
+	go  writeData(intData)
 	go readData(intData,exitData)
 
 	for  {
-		_,ok := <-exitData
+		_,ok := <-exitData //一直读到退出ok会返回false
 		if !ok {
 			break
 		}

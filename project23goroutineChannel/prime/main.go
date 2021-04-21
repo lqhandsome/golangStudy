@@ -7,9 +7,8 @@ func main()  {
 	intChan := make(chan int ,8000)
 	primeChan := make(chan int ,2000)
 	exitChan := make(chan int ,4)
-	go putNum(8,intChan)
+	go putNum(8000,intChan)
 	for i:=1;i<5;i++ {
-		fmt.Println("15")
 		go primeNum(intChan,primeChan,exitChan)
 	}
 	for  {
@@ -19,13 +18,14 @@ func main()  {
 		}
 	}
 
-	fmt.Println("一共有",len(primeChan))
+	fmt.Println("一共有",len(primeChan),"素数")
 
 }
 
 func putNum(num int,intChan chan int)  {
 	for i := 2;i <= num;i++ {
 		intChan<-i
+		//fmt.Println("intChan的长度",len(intChan))
 	}
 	fmt.Println(len(intChan))
 	close(intChan)
@@ -34,7 +34,6 @@ func putNum(num int,intChan chan int)  {
 func primeNum(intChan chan int,primeChan chan  int,exitChan chan  int)  {
 
 	for v := range intChan{
-		fmt.Println("读取到了",v)
 		count := 0
 		for i := 1;i < v;i++ {
 			if v % i  == 0{
@@ -43,6 +42,7 @@ func primeNum(intChan chan int,primeChan chan  int,exitChan chan  int)  {
 		}
 		if count <= 1{
 			primeChan<-v
+			fmt.Println("素数：",v)
 		}
 	}
 	exitChan<-1
