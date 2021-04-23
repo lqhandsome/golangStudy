@@ -15,7 +15,7 @@ func main() {
 	defer listen.Close() //延时关闭listen
 	//循环等待客户端链接
 	for {
-		fmt.Println("等待客户端链接我")
+		fmt.Println("等待客户端链接")
 		conn,err := listen.Accept()
 		if err != nil {
 			fmt.Println("Accept失败：err=",err)
@@ -30,7 +30,6 @@ func main() {
 func process(conn net.Conn) {
 	//这里我们循环接收
 	defer conn.Close() //关闭conn
-
 	for  {
 		//创建一个新的切片
 		buf := make([]byte,1024)
