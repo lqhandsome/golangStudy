@@ -34,4 +34,7 @@ func testStruct(c interface{}) {
 	fmt.Println(varRes)
 	fmt.Println(res.Name)
 	res.Name = "好孩子"
+	fieldNums := val.Elem().NumField()
+	fmt.Println("val的字段个数=",fieldNums)
+	fmt.Println("c的类别=",val.Kind())
 }
