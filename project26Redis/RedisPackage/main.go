@@ -9,7 +9,7 @@ func main() {
 	//options := redis.DialOption{
 	//
 	//}
-	c, err := redis.Dial("tcp","127.0.0.1:6377")
+	c, err := redis.Dial("tcp","127.0.0.1:6379")
 	if err != nil {
 		fmt.Println("连接失败",err)
 		return
