@@ -18,7 +18,7 @@ func main() {
 	res ,err := c.Do("set","lq","帅气")
 	c.Do("set","age",23)
 	if err != nil {
-		fmt.Println("操作reids错误：",err)
+		fmt.Println("操作redis错误：",err)
 	}
 	parseRes :=res.(string)
 	data,err := redis.Strings(c.Do("keys","*")) //获取数据需要转换
