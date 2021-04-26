@@ -1,14 +1,13 @@
 package main
 
 import (
-	"bufio"
 	"encoding/binary"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"net"
-	"os"
 	"go_code/project27/chatRoom/common/message"
+	"net"
+	//"../common/message"
 )
 
 /*
@@ -59,14 +58,11 @@ func login(userId int,pwd string)(err error) {
 	pakLen = uint32(dataLen)
 	var bytes [4]byte
 	binary.BigEndian.PutUint32(bytes[0:4],pakLen)
-	n,err := conn.Write(bytes)
+	n,err := conn.Write(bytes[0:4])
 	if n != 4 || err != nil {
 		fmt.Println("conn.Write(bytes) fail",err)
 		return
 	}
-	//获取键盘输入
-	reader := bufio.NewReader(os.Stdin)
-	line,_ := reader.ReadString('\n')
-	conn.Write([]byte(line))
+	fmt.Println("客户端发送的长度",len(data),bytes[0:4])
 	return
 }

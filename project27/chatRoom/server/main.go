@@ -26,6 +26,19 @@ func main() {
 }
 
 func process(conn net.Conn){
-	//读取客户端发送的信息
 	defer conn.Close()
+
+	//读取客户端发送的信息
+	for {
+		//获取数据
+		buf := make([]byte,1024 * 8)
+		//conn.Read 是一个阻塞进程
+		fmt.Println("正在读取文件...")
+		n, err := conn.Read(buf[:4])
+		if n != 4 && err != nil {
+			fmt.Println("读取错误:",err)
+			return
+		}
+		fmt.Println("读取到的buf=",buf[:4])
+	}
 }
