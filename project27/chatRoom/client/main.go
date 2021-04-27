@@ -34,19 +34,13 @@ func main() {
 				fmt.Println("输入有误重新输入")
 		}
 	}
-
 	if key == 1 {
 		//用户要登录
 		fmt.Print("请输入用户的Id:")
 		fmt.Scanf("%d\n",&userId)
 		fmt.Print("请输入用户密码:")
 		fmt.Scanf("%v\n",&userPwd)
-		err := login(userId,userPwd)
-		if err != nil {
-			fmt.Println("登录失败",err)
-			return
-		} else {
-			fmt.Println("登陆成功")
-		}
+		login(userId,userPwd)
+
 	}
 }

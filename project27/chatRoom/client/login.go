@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/binary"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"go_code/project27/chatRoom/common/message"
 	"net"
@@ -16,9 +15,6 @@ import (
 func login(userId int,pwd string)(err error) {
 	//定义协议
 	fmt.Println(userId,pwd)
-	if userId != 100 || pwd != "123456" {
-		return errors.New("账号或者密码不正确")
-	}
 
 	//连接服务端
 	conn,err := net.Dial("tcp","127.0.0.1:8889")
@@ -26,6 +22,7 @@ func login(userId int,pwd string)(err error) {
 		fmt.Println("客户端连接失败：",err)
 		return
 	}
+	//延时关闭连接
 	defer conn.Close()
 
 	//准备发送信息
@@ -56,13 +53,32 @@ func login(userId int,pwd string)(err error) {
 	dataLen := len(data)
 	var pakLen uint32
 	pakLen = uint32(dataLen)
-	var bytes [4]byte
-	binary.BigEndian.PutUint32(bytes[0:4],pakLen)
-	n,err := conn.Write(bytes[0:4])
+	var buf [4]byte
+	binary.BigEndian.PutUint32(buf[0:4],pakLen)
+	n,err := conn.Write(buf[0:4])
 	if n != 4 || err != nil {
 		fmt.Println("conn.Write(bytes) fail",err)
 		return
 	}
-	fmt.Println("客户端发送的长度",len(data),bytes[0:4])
+	fmt.Println("客户端发送的长度",data,buf[0:4])
+	_, err = conn.Write(data)
+	if err != nil {
+		fmt.Println("写入data失败",err)
+		return
+	}
+	msg,err := readPkg(conn)
+	if err != nil {
+		fmt.Println("读取失败76",err)
+	}
+
+	//将mes的data部分反序列化成LoginResMes
+	var loginResMes message.LoginResMes
+	err = json.Unmarshal([]byte(msg.Data),&loginResMes)
+
+	if loginResMes.Code == 200 {
+		fmt.Println("登录成功")
+	} else if loginResMes.Code == 500 {
+		fmt.Println("登录失败",loginResMes.Error)
+	}
 	return
 }
