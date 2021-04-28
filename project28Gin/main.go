@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -20,7 +21,10 @@ func main() {
 		name := c.Param("name")
 		action := c.Param("action")
 		message := name + " is " + action
-		c.String(http.StatusOK, message)
+
+		a := map[string]string{"name":"lq","data":message}
+		json , _  := json.Marshal(a)
+		c.String(http.StatusOK, string(json))
 	})
 
 	router.Run(":8081")
