@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"go_code/project27/chatRoom/client/process"
 )
 var (
 	userId int
@@ -23,6 +24,14 @@ func main() {
 		switch key {
 			case 1:
 				fmt.Println("登陆聊天室")
+				//用户要登录
+				fmt.Print("请输入用户的Id:")
+				fmt.Scanf("%d\n",&userId)
+				fmt.Print("请输入用户密码:")
+				fmt.Scanf("%v\n",&userPwd)
+				up := &process.UserProcess{
+					}
+				up.Login(userId,userPwd)
 				loop = false
 			case 2:
 				fmt.Println("注册用户")
@@ -35,12 +44,7 @@ func main() {
 		}
 	}
 	if key == 1 {
-		//用户要登录
-		fmt.Print("请输入用户的Id:")
-		fmt.Scanf("%d\n",&userId)
-		fmt.Print("请输入用户密码:")
-		fmt.Scanf("%v\n",&userPwd)
-		login(userId,userPwd)
+
 
 	}
 }
