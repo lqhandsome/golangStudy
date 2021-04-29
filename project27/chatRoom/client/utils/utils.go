@@ -16,8 +16,6 @@ type Transfer struct {
 func (this *Transfer)ReadPkg()(message message.Message,err error) {
 	//获取数据
 
-	//buf := make([]byte,1024 * 8)
-	fmt.Println("正在读取文件...")
 	//conn.Read 是一个阻塞进程 必须发送端和接收端都不能关闭
 	_, err = this.Conn.Read(this.Buf[:4])
 	if  err != nil {

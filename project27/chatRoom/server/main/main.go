@@ -2,10 +2,26 @@ package main
 
 import (
 	"fmt"
+	"go_code/project27/chatRoom/server/model"
 	"net"
+	"github.com/garyburd/redigo/redis"
 )
 
+const (
+	REDIS_IP_PORT = "localhost:6380"
+)
+var (
+	pool *redis.Pool
+)
+
+//初始化UserDao
+func initUserDao() {
+	model.MyUserDao = model.NewUserDao(pool)
+}
+
 func main() {
+	initPool(REDIS_IP_PORT)
+	initUserDao()
 	listen,err := net.Listen("tcp","127.0.0.1:8889")
 	if err != nil {
 		fmt.Println("创建监听失败,",err)
@@ -32,10 +48,13 @@ func process(conn net.Conn){
 	process := &Processor{
 		Conn: conn,
 	}
-	err := process.mainProcess()
-	if err != nil {
-		 fmt.Println("客户端和服务器协程退出")
-		return
+	//子协程循环调用
+	for  {
+		err := process.mainProcess()
+		if err != nil {
+			fmt.Println("客户端和服务器协程退出")
+			return
+		}
 	}
 }
 

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"go_code/project27/chatRoom/common/message"
+	"go_code/project27/chatRoom/server/model"
 	"go_code/project27/chatRoom/server/utils"
 	"net"
 )
@@ -23,18 +24,23 @@ func (this *UserProcess)ServerProcessLogin(mes *message.Message)(err error) {
 		fmt.Println("格式化mes.data失败")
 		return
 	}
-
 	//申明一个resMes
 	var resMes message.Message
 	resMes.Type = message.LoginResMesType
 
 	//声明一个loginResMes
 	var loginResMes message.LoginResMes
-	if loginMes.UserId == 100 && loginMes.UserPwd == "123456" {
-		loginResMes.Code = 200
-	} else {
+
+	user, err := model.MyUserDao.Login(loginMes.UserId,loginMes.UserPwd)
+
+	if err != nil {
 		loginResMes.Code = 500
-		loginResMes.Error = "账号或者密码不正确，请重新登录"
+		loginResMes.Error = "登陆失败"
+		fmt.Println("登录失败")
+		return
+	} else {
+		loginResMes.Code = 200
+		fmt.Println(user.UserId,"登录成功")
 	}
 
 	data, err := json.Marshal(loginResMes)

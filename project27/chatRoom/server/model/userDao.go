@@ -24,6 +24,7 @@ func NewUserDao(pool *redis.Pool)(userDao *UserDao) {
 }
 //1.根据id返回用户信息
 func (this *UserDao) getUserById(conn redis.Conn,id int) (user *User,err error){
+	user = &User{}
 	msg,err := redis.String(conn.Do("hget","user",id))
 	if err !=nil {
 		//没有找到用户
@@ -43,6 +44,7 @@ func (this *UserDao) getUserById(conn redis.Conn,id int) (user *User,err error){
 
 //2.登录校验
 func(this *UserDao)  Login(userId int,userPwd string)(user *User,err error) {
+	user = &User{}
 	conn := this.pool.Get()
 	defer conn.Close()
 	user, err = this.getUserById(conn,userId)
