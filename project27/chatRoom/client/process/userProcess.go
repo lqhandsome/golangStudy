@@ -18,7 +18,7 @@ func (this *UserProcess)Login(userId int,pwd string)(err error) {
 	fmt.Println(userId,pwd)
 
 	//连接服务端
-	conn,err := net.Dial("tcp","127.0.0.1:8889")
+	conn,err := net.Dial("tcp","127.0.0.1:8888")
 	if err != nil {
 		fmt.Println("客户端连接失败：",err)
 		return
@@ -79,7 +79,7 @@ func (this *UserProcess)Login(userId int,pwd string)(err error) {
 	//将mes的data部分反序列化成LoginResMes
 	var loginResMes message.LoginResMes
 	err = json.Unmarshal([]byte(msg.Data),&loginResMes)
-
+	fmt.Println("用户端读取的loginResMes",loginResMes)
 	if loginResMes.Code == 200 {
 		fmt.Println("登录成功")
 		//1.显示登陆成功后的菜单
@@ -87,7 +87,7 @@ func (this *UserProcess)Login(userId int,pwd string)(err error) {
 		ShowMenu()
 
 	} else if loginResMes.Code == 500 {
-		fmt.Println("登录失败",loginResMes.Error)
+		fmt.Println(loginResMes.Error)
 	}
 	return
 }

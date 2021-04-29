@@ -35,9 +35,13 @@ func (this *UserProcess)ServerProcessLogin(mes *message.Message)(err error) {
 
 	if err != nil {
 		loginResMes.Code = 500
-		loginResMes.Error = "登陆失败"
-		fmt.Println("登录失败")
-		return
+
+		if err == model.ERROR_USER_NOTEXISTS  {
+			loginResMes.Error = "用户不存在"
+		}
+		if err == model.ERROR_USER_PWD {
+			loginResMes.Error = "密码不正确"
+		}
 	} else {
 		loginResMes.Code = 200
 		fmt.Println(user.UserId,"登录成功")

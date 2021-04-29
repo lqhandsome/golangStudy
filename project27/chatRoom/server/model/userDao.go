@@ -25,8 +25,9 @@ func NewUserDao(pool *redis.Pool)(userDao *UserDao) {
 //1.根据id返回用户信息
 func (this *UserDao) getUserById(conn redis.Conn,id int) (user *User,err error){
 	user = &User{}
-	msg,err := redis.String(conn.Do("hget","user",id))
-	if err !=nil {
+	msg,err := redis.String(conn.Do("hget","users",id))
+	fmt.Println("29",msg,err)
+	if err != nil {
 		//没有找到用户
 		if err != redis.ErrNil {
 			err = ERROR_USER_NOTEXISTS
@@ -35,6 +36,7 @@ func (this *UserDao) getUserById(conn redis.Conn,id int) (user *User,err error){
 	}
 
 	err = json.Unmarshal([]byte(msg),user)
+	fmt.Println("从redis中获取的数据")
 	if err != nil {
 		fmt.Println("json反序列化出错",err)
 		return
@@ -49,6 +51,7 @@ func(this *UserDao)  Login(userId int,userPwd string)(user *User,err error) {
 	defer conn.Close()
 	user, err = this.getUserById(conn,userId)
 	if err != nil {
+		err = ERROR_USER_NOTEXISTS
 		return
 	}
 	//能够取出用户，再判断用户密码是否正确

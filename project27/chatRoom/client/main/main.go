@@ -31,7 +31,7 @@ func main() {
 				fmt.Scanf("%v\n",&userPwd)
 				up := &process.UserProcess{
 					}
-				up.Login(userId,userPwd)
+				_ =up.Login(userId,userPwd)
 				loop = false
 			case 2:
 				fmt.Println("注册用户")

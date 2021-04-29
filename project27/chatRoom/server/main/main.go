@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	REDIS_IP_PORT = "localhost:6380"
+	REDIS_IP_PORT = "localhost:6379"
 )
 var (
 	pool *redis.Pool
@@ -22,7 +22,7 @@ func initUserDao() {
 func main() {
 	initPool(REDIS_IP_PORT)
 	initUserDao()
-	listen,err := net.Listen("tcp","127.0.0.1:8889")
+	listen,err := net.Listen("tcp","127.0.0.1:8888")
 	if err != nil {
 		fmt.Println("创建监听失败,",err)
 		return
