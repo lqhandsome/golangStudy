@@ -16,14 +16,19 @@ type Processor struct {
 //根据客户端发送消息类型不同调用不同的函数
 func (this *Processor)serverProcessMes(mes *message.Message) (err error) {
 	switch mes.Type {
-	case message.LoginMesType:
-		up := &process2.UserProcess{
-				this.Conn,
-		}
-		up.ServerProcessLogin(mes)
 		//处理登录
-	case message.RegisterMesType:
+		case message.LoginMesType:
+			up := &process2.UserProcess{
+					this.Conn,
+			}
+			up.ServerProcessLogin(mes)
+
 		//处理注册
+		case message.RegisterMesType:
+			up := &process2.UserProcess{
+				this.Conn,
+			}
+			up.ServerProcessRegister(mes)
 	default:
 		errors.New("不符合的消息类型")
 	}

@@ -7,6 +7,7 @@ import (
 var (
 	userId int
 	userPwd string
+	userName string
 )
 func main() {
 
@@ -35,6 +36,17 @@ func main() {
 				loop = false
 			case 2:
 				fmt.Println("注册用户")
+				//1.获取用户输入
+				fmt.Print("请输入用户id:")
+				fmt.Scanf("%d\n",&userId)
+				fmt.Print("请输入用户密码:")
+				fmt.Scanf("%v\n",&userPwd)
+				fmt.Print("请输入用户名字（nickName）:")
+				fmt.Scanf("%v\n",&userName)
+				up := &process.UserProcess{
+				}
+				_ = up.RegisterUser(userId,userPwd,userName)
+				//2.调用UserProcess实例注册一个用户
 				loop = false
 			case 3:
 				fmt.Println("退出系统")

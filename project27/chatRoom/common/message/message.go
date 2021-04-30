@@ -22,7 +22,10 @@ type LoginResMes struct {
 }
 
 type RegisterMes struct {
-
+	User User `json:"user"`
 }
 
-
+type RegisterResMes struct {
+	Code int `json:"code"`//状态码 400该用户已经占用，200表示注册成功
+	Error string `json:"error"`//错误信息
+}

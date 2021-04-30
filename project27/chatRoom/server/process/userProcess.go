@@ -56,7 +56,6 @@ func (this *UserProcess)ServerProcessLogin(mes *message.Message)(err error) {
 	resMes.Data = string(data)
 
 	//对要返回的数据进行整体序列化
-
 	data,err =json.Marshal(resMes)
 	if err != nil {
 		fmt.Println("序列化失败119",err)
@@ -66,5 +65,46 @@ func (this *UserProcess)ServerProcessLogin(mes *message.Message)(err error) {
 		Conn: this.Conn,
 	}
 	tf.WritePkg(data)
+	return
+}
+
+func (this  *UserProcess) ServerProcessRegister(mes *message.Message)(err error) {
+	//1.先从mes.data中取出数据并反序列化
+	var registerMes message.RegisterMes
+	err = json.Unmarshal([]byte(mes.Data),&registerMes)
+
+	if err != nil {
+		fmt.Println("格式化mes.data失败")
+		return
+	}
+
+	//申明一个resMes
+	var resMes message.Message
+	resMes.Type = message.RegisterMesType
+
+	//声明一个registerRes
+	var registerResMes message.RegisterResMes
+
+	//进入数据库添加用户
+	err = model.MyUserDao.Register(registerMes.User)
+	if err != nil {
+		if err == model.ERROR_USER_EXISTS {
+			registerResMes.Code = 505
+			registerResMes.Error = model.ERROR_USER_EXISTS.Error()
+		} else {
+			registerResMes.Code = 506
+			registerResMes.Error = "未知错误"
+		}
+	} else {
+		registerResMes.Code = 200
+	}
+	data,err := json.Marshal(registerMes)
+	resMes.Data = string(data)
+
+	tf := &utils.Transfer{
+		Conn: this.Conn,
+	}
+	tf.WritePkg(data)
+	//发送数据
 	return
 }

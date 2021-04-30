@@ -1,10 +1,21 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/garyburd/redigo/redis"
+)
 
 func main() {
+
 	m := aa()
-	fmt.Printf("%T",m)
+	m.UserId  = 100
+	m.UserName  = "lqhandsome"
+	m.UserPwd  = "123456"
+	conn,_ := redis.Dial("tcp","127.0.0.1:6379")
+	res,_ := json.Marshal(m)
+	conn.Do("hset","user",m.UserId,string(res))
+	fmt.Printf("%p%p",m,&m)
 }
 
 type Monster struct {
@@ -15,6 +26,8 @@ type Monster struct {
 }
 
 func aa() (m *Monster){
+	print(m)
+	fmt.Println()
 	m = new(Monster)
 	print(m)
 	fmt.Println()
