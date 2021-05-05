@@ -8,6 +8,25 @@ import (
 
 func main() {
 
+	var s []int
+	s = append(s,1)
+
+	println(s)
+	fmt.Println(s)
+	return
+	a := 1
+	b := make([]int,2)
+	b[1] = 10
+	println(b)
+	b = append(b,1)
+	b = append(b,1)
+	b = append(b,1)
+
+	println(a)
+	println(b)
+	//c := [2]int{1,2}
+	//println(c)
+	return
 	m := aa()
 	m.UserId  = 100
 	m.UserName  = "lqhandsome"

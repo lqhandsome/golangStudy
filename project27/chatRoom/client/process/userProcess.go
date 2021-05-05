@@ -81,6 +81,20 @@ func (this *UserProcess)Login(userId int,pwd string)(err error) {
 	if loginResMes.Code == 200 {
 		fmt.Println("登录成功")
 		//1.显示登陆成功后的菜单
+		fmt.Println("当前在线用户的列表如下：")
+		for _,  v := range loginResMes.UserIds {
+			if v == userId {
+				continue
+			}
+			fmt.Println("用户id：\t",v)
+			//完成客户端维护的map初始化
+			user := &message.User{
+				UserId: v,
+				UserStatus: message.UserOnline,
+			}
+			onlineUsers[v] = user
+		}
+		//开启协程，保持客户端与服务端保持通讯
 		go serverProcessMes(conn)
 		ShowMenu()
 

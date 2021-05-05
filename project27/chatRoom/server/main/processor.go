@@ -19,14 +19,14 @@ func (this *Processor)serverProcessMes(mes *message.Message) (err error) {
 		//处理登录
 		case message.LoginMesType:
 			up := &process2.UserProcess{
-					this.Conn,
+					Conn: this.Conn,
 			}
 			up.ServerProcessLogin(mes)
 
 		//处理注册
 		case message.RegisterMesType:
 			up := &process2.UserProcess{
-				this.Conn,
+				Conn: this.Conn,
 			}
 			up.ServerProcessRegister(mes)
 	default:

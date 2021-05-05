@@ -12,6 +12,55 @@ import (
 type UserProcess struct {
 	//字段
 	Conn net.Conn
+	//ID
+	UserId int
+
+}
+
+//通过所有在线的用户，有新用户上线
+func (this *UserProcess) NotifyOthersOnlineUser(userId int) {
+	//遍历所有在线用户
+	for id, up := range userMgr.onlineUsers {
+		if id == userId {
+			continue
+		}
+		_ = up.NotifyMeOnline(userId)
+		//通知其他在线用用户
+	}
+}
+
+func (this *UserProcess) NotifyMeOnline(userId int) (err error){
+		var mes message.Message
+		mes.Type = message.NotifyUserStatusMesType
+
+		var notifyUserStatusMes message.NotifyUserStatusMes
+		notifyUserStatusMes.UserId = userId
+		notifyUserStatusMes.UserStatus = message.UserOnline
+
+		//将notifyUserStatusMes序列化
+
+		data,err := json.Marshal(notifyUserStatusMes)
+		if err != nil {
+			fmt.Println("json格式化错误num44")
+			return err
+		}
+		mes.Data = string(data)
+		//将数据整体格式化
+		data,err = json.Marshal(mes)
+		if err != nil {
+			fmt.Println("json格式化错误num44")
+			return err
+		}
+		//创建TransFer实例发送数据
+		tf :=  &utils.Transfer{
+			Conn: this.Conn,
+
+		}
+	fmt.Println("aaaaaaaaaaaaaaaa",string(data),mes)
+		//发送数据
+		tf.WritePkg(data)
+
+		return
 }
 
 //处理用户登录
@@ -44,6 +93,14 @@ func (this *UserProcess)ServerProcessLogin(mes *message.Message)(err error) {
 		}
 	} else {
 		loginResMes.Code = 200
+		this.UserId = loginMes.UserId
+		userMgr.AddOnlineUser(this)
+		//登陆成功通知其他用户
+		this.NotifyOthersOnlineUser(loginMes.UserId)
+		//讲在线用户放入切片返回给客户端
+		for id, _ := range userMgr.onlineUsers {
+			loginResMes.UserIds = append(loginResMes.UserIds,id)
+		}
 		fmt.Println(user.UserId,"登录成功")
 	}
 

@@ -1,7 +1,9 @@
 package process
 
 import (
+	"encoding/json"
 	"fmt"
+	"go_code/project27/chatRoom/common/message"
 	"go_code/project27/chatRoom/server/utils"
 	"net"
 	"os"
@@ -20,7 +22,8 @@ func ShowMenu() {
 	fmt.Scanf("%d\n",&key)
 	switch key {
 		case 1:
-		fmt.Println("111")
+			outputOnlineUser()
+			ShowMenu()
 		case 2:
 		fmt.Println("111")
 		case 4:
@@ -44,6 +47,15 @@ func serverProcessMes(conn net.Conn) {
 		if err != nil {
 			fmt.Println("tf.ReadPkg err=",err)
 			return
+		}
+		switch msg.Type {
+			//有人上线
+			case message.NotifyUserStatusMesType :
+				var notifyUserStatusMes message.NotifyUserStatusMes
+				json.Unmarshal([]byte(msg.Data),&notifyUserStatusMes)
+				updateUserStatus(&notifyUserStatusMes)
+			default:
+				fmt.Println("服务器返回了一个位置类型")
 		}
 		fmt.Println("msg=",msg)
 	}
