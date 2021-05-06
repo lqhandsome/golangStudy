@@ -125,6 +125,7 @@ func (this *UserProcess)ServerProcessLogin(mes *message.Message)(err error) {
 	return
 }
 
+//处理用户注册
 func (this  *UserProcess) ServerProcessRegister(mes *message.Message)(err error) {
 	//1.先从mes.data中取出数据并反序列化
 	var registerMes message.RegisterMes
@@ -165,3 +166,5 @@ func (this  *UserProcess) ServerProcessRegister(mes *message.Message)(err error)
 	//发送数据
 	return
 }
+
+//处理用户群发消息

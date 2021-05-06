@@ -62,6 +62,6 @@ func(this *Transfer)WritePkg(data []byte)(err error) {
 		fmt.Println("写入data失败",err)
 		return
 	}
-	fmt.Println("发送给客户端的数据：",string(data))
+	fmt.Println("发送给服务端的数据：",string(data))
 	return
 }

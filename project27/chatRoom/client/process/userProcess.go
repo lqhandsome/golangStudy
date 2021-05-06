@@ -22,8 +22,8 @@ func (this *UserProcess)Login(userId int,pwd string)(err error) {
 		return
 	}
 	//延时关闭连接
+	defer fmt.Println("客户端即将关闭连接")
 	defer conn.Close()
-
 	//准备发送信息
 	var mes message.Message
 	mes.Type = message.LoginMesType
@@ -80,6 +80,10 @@ func (this *UserProcess)Login(userId int,pwd string)(err error) {
 	fmt.Println("用户端读取的loginResMes",loginResMes)
 	if loginResMes.Code == 200 {
 		fmt.Println("登录成功")
+		//初始化CurUser
+		CurUser.Conn = conn
+		CurUser.UserId = userId
+		CurUser.UserStatus = message.UserOnline
 		//1.显示登陆成功后的菜单
 		fmt.Println("当前在线用户的列表如下：")
 		for _,  v := range loginResMes.UserIds {
@@ -161,8 +165,8 @@ func (this *UserProcess) RegisterUser(userId int,userPwd string,userName string)
 		fmt.Println("注册成功")
 		os.Exit(0)
 		//1.显示登陆成功后的菜单
-		//go serverProcessMes(conn)
-		//ShowMenu()
+		go serverProcessMes(conn)
+		ShowMenu()
 
 	} else  {
 		fmt.Println(RegisterResMes.Error)

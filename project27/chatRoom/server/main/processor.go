@@ -9,33 +9,42 @@ import (
 	"io"
 	"net"
 )
+
 //创建一个processor结构体
 type Processor struct {
 	Conn net.Conn
 }
-//根据客户端发送消息类型不同调用不同的函数
-func (this *Processor)serverProcessMes(mes *message.Message) (err error) {
-	switch mes.Type {
-		//处理登录
-		case message.LoginMesType:
-			up := &process2.UserProcess{
-					Conn: this.Conn,
-			}
-			up.ServerProcessLogin(mes)
 
-		//处理注册
-		case message.RegisterMesType:
-			up := &process2.UserProcess{
-				Conn: this.Conn,
-			}
-			up.ServerProcessRegister(mes)
+//根据客户端发送消息类型不同调用不同的函数
+func (this *Processor) serverProcessMes(mes *message.Message) (err error) {
+	fmt.Println("mes=", mes)
+	switch mes.Type {
+	//处理登录
+	case message.LoginMesType :
+		up := &process2.UserProcess{
+			Conn: this.Conn,
+		}
+		up.ServerProcessLogin(mes)
+
+	//处理注册
+	case message.RegisterMesType :
+		up := &process2.UserProcess{
+			Conn: this.Conn,
+		}
+		up.ServerProcessRegister(mes)
+
+		//处理群发
+	case message.SmsMesType :
+		fmt.Println("服务端收到了群发信息。",mes)
+		smsProcess := &process2.SmsProcess{}
+		smsProcess.SendGroupMes(mes)
 	default:
 		errors.New("不符合的消息类型")
 	}
 	return nil
 }
 
-func (this *Processor) mainProcess()(err error) {
+func (this *Processor) mainProcess() (err error) {
 	//读取客户端发送的信息
 
 	for {
@@ -43,19 +52,19 @@ func (this *Processor) mainProcess()(err error) {
 		tf := &utils.Transfer{
 			Conn: this.Conn,
 		}
-		msg,err := tf.ReadPkg()
+		msg, err := tf.ReadPkg()
 		if err != nil {
 			if err == io.EOF {
 				fmt.Println("客户端关闭了连接")
 				return err
 			}
-			fmt.Println("读取客户端数据失败readPkg.err=",err)
+			fmt.Println("读取客户端数据失败readPkg.err=", err)
 			return err
 		}
-		fmt.Println("msg",msg)
+		fmt.Println("msg", msg)
 		err = this.serverProcessMes(&msg)
 		if err != nil {
-			fmt.Println("50errpr",err)
+			fmt.Println("50errpr", err)
 			return err
 		}
 		return err

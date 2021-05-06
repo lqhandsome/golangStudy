@@ -1,61 +1,34 @@
 package main
 
-import (
-	"encoding/json"
-	"fmt"
-	"github.com/garyburd/redigo/redis"
-)
+import "fmt"
 
 func main() {
+	//monster := Monster{
+	//	UserId:   0,
+	//	UserName: "",
+	//	UserPwd:  "",
+	//	Animal:   Animal{},
+	//}
+	//
+	var monster Monster
+	monster.UserId = 1
+	monster.UserPwd = "123445"
+	monster.Animal.Name = "lq"
 
-	var s []int
-	s = append(s,1)
-
-	println(s)
-	fmt.Println(s)
-	return
-	a := 1
-	b := make([]int,2)
-	b[1] = 10
-	println(b)
-	b = append(b,1)
-	b = append(b,1)
-	b = append(b,1)
-
-	println(a)
-	println(b)
-	//c := [2]int{1,2}
-	//println(c)
-	return
-	m := aa()
-	m.UserId  = 100
-	m.UserName  = "lqhandsome"
-	m.UserPwd  = "123456"
-	conn,_ := redis.Dial("tcp","127.0.0.1:6379")
-	res,_ := json.Marshal(m)
-	conn.Do("hset","user",m.UserId,string(res))
-	fmt.Printf("%p%p",m,&m)
+	fmt.Println(monster)
+	monster.Animal.pp()
 }
 
 type Monster struct {
-	UserId int `json:"userId"`
-	UserName string `json:"userName"`
+	UserId  int    `json:"userId"`
 	UserPwd string `json:"userPwd"`
-
+	Animal  Animal
 }
 
-func aa() (m *Monster){
-	print(m)
-	fmt.Println()
-	m = new(Monster)
-	print(m)
-	fmt.Println()
-	fmt.Printf("m =%p\n",m)
-	m.UserId = 1
-	return
+type Animal struct {
+	Name string
 }
 
-func bb() (m map[string]string) {
-
-	return m
+func (a Animal) pp() {
+	fmt.Println(a.Name)
 }

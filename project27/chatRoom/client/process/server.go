@@ -3,10 +3,9 @@ package process
 import (
 	"encoding/json"
 	"fmt"
+	"go_code/project27/chatRoom/client/utils"
 	"go_code/project27/chatRoom/common/message"
-	"go_code/project27/chatRoom/server/utils"
 	"net"
-	"os"
 )
 
 //显示登陆成功后的界面
@@ -19,16 +18,28 @@ func ShowMenu() {
 	fmt.Println("--------4. 退出系统-------")
 	fmt.Println("请选择（1-4）：")
 	var key int
+	var content string
+
+	//初始化SmsProcess实例
+	smsProcess := &SmsProcess{
+	}
 	fmt.Scanf("%d\n",&key)
 	switch key {
 		case 1:
 			outputOnlineUser()
 			ShowMenu()
 		case 2:
-		fmt.Println("111")
+			fmt.Println("请输入要发送的信息")
+			fmt.Scanf("%s\n",&content)
+			err := smsProcess.SendGroupMes(content)
+			if  err != nil{
+				fmt.Println("发送失败")
+				return
+			}
+			ShowMenu()
 		case 4:
 		fmt.Println("退出了系统")
-		os.Exit(200)
+			return
 		default:
 		fmt.Println("输入错误")
 	}
@@ -54,6 +65,12 @@ func serverProcessMes(conn net.Conn) {
 				var notifyUserStatusMes message.NotifyUserStatusMes
 				json.Unmarshal([]byte(msg.Data),&notifyUserStatusMes)
 				updateUserStatus(&notifyUserStatusMes)
+
+			//有人群发消息
+			case message.SmsMesType :
+				fmt.Println("客户端接收到的群发消息")
+				fmt.Println(msg)
+				outputGroupMes(&msg)
 			default:
 				fmt.Println("服务器返回了一个位置类型")
 		}

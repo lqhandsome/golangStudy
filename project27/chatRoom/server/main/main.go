@@ -14,6 +14,11 @@ var (
 	pool *redis.Pool
 )
 
+/*
+1.实现点对点聊天
+2.如果一个登陆用户离线，就把这个人用在线列表去掉
+3.实现离线留言，在群聊时如果某个用户没有在线，登录后可以接收到离线的消息
+ */
 //初始化UserDao
 func initUserDao() {
 	model.MyUserDao = model.NewUserDao(pool)

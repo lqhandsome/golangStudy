@@ -2,12 +2,13 @@ package process
 
 import (
 	"fmt"
+	"go_code/project27/chatRoom/client/model"
 	"go_code/project27/chatRoom/common/message"
 )
 
 //客户端要维护的map
 var onlineUsers map[int]*message.User  = make(map[int]*message.User,10)
-
+var CurUser model.CurUser //在登陆完成后对其初始化
 //在客户端显示当前在线的用户
 func outputOnlineUser() {
 	fmt.Println("当前用户列表")
