@@ -13,6 +13,11 @@ type CircleQueue struct {
 }
 
 //环形队列
+//队列只储存数组的长度少一个的数据，
+//判断队列是否已经满了 （tail + len(arr) +1 ）% len(arr) == head
+//判断队列是否微空 tail == head
+//判断队列的储存个数
+//(tail + len(arr) - head) % len(arr)
 func main() {
 	queue := CircleQueue{
 		maxSize: 5,
