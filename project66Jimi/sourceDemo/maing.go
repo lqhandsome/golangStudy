@@ -16,7 +16,7 @@ func main() {
 }
 
 func sayHello(w http.ResponseWriter, r *http.Request) {
-	b,_ := ioutil.ReadFile("./hello.txt")
+	b,_ := ioutil.ReadFile("../hello.txt")
 	a := fmt.Sprintf(string(b))
 	_, _ =fmt.Fprintln(w,string(a))
 

@@ -19,19 +19,22 @@ func main() {
 		no:   1,
 		name: "Tom",
 	}
-	cat2 := &CatNode{
-		no:   2,
-		name: "Tom2",
-	}
-	cat3 := &CatNode{
-		no:   3,
-		name: "Tom3",
-	}
+	//cat2 := &CatNode{
+	//	no:   2,
+	//	name: "Tom2",
+	//}
+	//cat3 := &CatNode{
+	//	no:   3,
+	//	name: "Tom3",
+	//}
 	InsertCatNode(head,cat1)
-	InsertCatNode(head,cat2)
-	InsertCatNode(head,cat3)
+	//InsertCatNode(head,cat2)
+	//InsertCatNode(head,cat3)
 	ListCircleLink(head)
-	println(head)
+	//head = DeleteCircleLink(head,1)
+	head.del(1)
+	ListCircleLink(head)
+
 }
 
 func InsertCatNode(head *CatNode, newCatNode *CatNode) {
@@ -72,7 +75,53 @@ func ListCircleLink(head *CatNode){
 		temp = temp.next
 	}
 }
-//删除一个
-func DeleteCircleLink(head *CatNode,no int){
+func (head *CatNode) del(no int) {
+	if head.next == nil {
+		fmt.Println("链表为空，无法删除")
+		return
+	}
 
+	if head.next == head  {
+		if head.no == no {
+			fmt.Println(111)
+			head.next = nil
+			head.no = 0
+			head.name = ""
+
+			return
+		}
+		return
+	}
+}
+//删除一个
+func DeleteCircleLink(head *CatNode,no int) *CatNode {
+	if head.next == nil {
+		fmt.Println("链表为空，无法删除")
+		return head
+	}
+
+	if head.next == head  {
+		if head.no == no {
+			fmt.Println(111)
+			//head = &CatNode{}
+			head.next = nil
+			head.no = 0
+			head.name = ""
+			return head
+		}
+		return head
+	}
+
+	//tmp := head.next
+	//helper := head
+
+	//for {
+	//
+	//	tmp = tmp.next
+	//	helper = helper.next
+	//	if tmp.no == no {
+	//
+	//	}
+	//}
+	return head
 }
