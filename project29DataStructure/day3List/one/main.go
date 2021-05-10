@@ -5,11 +5,6 @@ import (
 	"fmt"
 )
 
-type List struct {
-	next *List
-	val  int
-}
-
 //定义一个节点
 type HeroNode struct {
 	no       int
