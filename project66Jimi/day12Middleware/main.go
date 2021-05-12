@@ -14,7 +14,7 @@ func main() {
 	r := gin.Default()
 	r.Use(m1,m2)
 	r.GET("/index", indexHandle)
-	r.Run(":7777")
+	r.Run(":7776")
 
 }
 
@@ -36,6 +36,9 @@ func m1(c *gin.Context) {
 func m2(c *gin.Context) {
 	fmt.Println("m2 in")
 	c.Abort()
-	c.Redirect(301,"http://www.sogo.com")
+	//c.Redirect(301,"http://www.sogo.com")
+	c.JSON(200, gin.H{
+		"name": "Abort",
+	})
 	fmt.Println("m2 out")
 }
