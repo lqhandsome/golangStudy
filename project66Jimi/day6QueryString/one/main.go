@@ -4,7 +4,7 @@ import "github.com/gin-gonic/gin"
 
 func main() {
 	r := gin.Default()
-	r.GET("/query", func(c *gin.Context) {
+	r.POST("/query", func(c *gin.Context) {
 		//1.取不到为其添加默认值
 		name := c.DefaultQuery("name", "none")
 
@@ -12,7 +12,7 @@ func main() {
 		age := c.Query("age")
 
 		//3.取不到第二个值返回false
-		sex, ok := c.GetQuery("sex")
+		sex, ok := c.GetPostForm("sex")
 		if !ok {
 			sex = "未知"
 		}
