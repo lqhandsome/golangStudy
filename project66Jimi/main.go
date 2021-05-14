@@ -6,3 +6,7 @@ func main()  {
 	r := gin.Default()
 	r.GET("/home",sayHello)
 }
+
+func sayHello(c *gin.Context) {
+
+}

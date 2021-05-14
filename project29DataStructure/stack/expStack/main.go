@@ -61,9 +61,9 @@ func Cal(num1 int, num2 int, oper int) int {
 	case 43:
 		res = num1 + num2
 	case 45:
-		res = num1 - num2
+		res = num2 - num1
 	case 47:
-		res = num1 / num2
+		res = num2 / num1
 	default:
 		fmt.Println("运算符有问题")
 		return -1
@@ -78,6 +78,7 @@ func Priority(oper int) int {
 	} else if oper == 43 || oper == 45 {
 		return 0
 	}
+	fmt.Println("ERR")
 	return -1
 
 }
@@ -94,7 +95,7 @@ func main() {
 		Top:    -1,
 	}
 
-	exp := "3+2*6-2"
+	exp := "8+2*6/3-2*2*2+5+1"
 	// index = 0
 	index := 0
 	var num1, num2, oper, result int
@@ -122,6 +123,7 @@ func main() {
 		} else {
 			//是数字
 			val,_ := strconv.ParseInt(exp[index:index+1],10,64)
+			//fmt.Printf("%T%v\n",val,val)
 			numStack.Push(int(val))
 		}
 		index++
@@ -129,10 +131,14 @@ func main() {
 			break
 		}
 	}
-	for operStack.Top == -1  {
+	numStack.List()
+	operStack.List()
+	fmt.Println("-------------")
+	for operStack.Top != -1  {
 		_, num1 = numStack.Pop()
 		_, num2 = numStack.Pop()
 		_, oper = operStack.Pop()
+		fmt.Println(num1,num2,oper)
 		result = Cal(num1, num2, oper)
 		numStack.Push(result)
 	}
