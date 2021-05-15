@@ -1,17 +1,31 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 func main() {
-	arr := [6]int{10, 34, 19, 100, 80, -10}
+	//arr := [6]int{10, 34, 19, 100, 80, -10}
+	var arr[80000]int
+	for i := 0; i < 80000; i++ {
+		//rand.Seed(time.Now().Unix())
+		rand.Seed(time.Now().UnixNano())
+		//time.Sleep(time.Second / 100)
+		arr[i] = rand.Intn(9000)
+	}
+
+	start := time.Now().UnixNano()
 	//SelectSort(&arr)
 	//insertSort(&arr)
 	quickSort(0, len(arr)-1, &arr)
-	fmt.Println(arr)
+	end := time.Now().UnixNano()
+	fmt.Println("快速耗时",end - start)
 
 }
 
-func SelectSort(arr *[5]int) {
+func SelectSort(arr *[80000]int) {
 	l := len(*arr)
 	for i := 0; i < l; i++ {
 		for j := i + 1; j < l; j++ {
@@ -26,7 +40,7 @@ func SelectSort(arr *[5]int) {
 }
 
 //插入排序
-func insertSort(arr *[5]int) {
+func insertSort(arr *[80000]int) {
 	l := len(arr)
 	for i := 1; i < l; i++ {
 		//要插入的数据
@@ -40,7 +54,7 @@ func insertSort(arr *[5]int) {
 }
 
 //快速排序 {10, 34, 19, 100, 80,-10}
-func quickSort(left int, right int, arr *[6]int) {
+func quickSort(left int, right int, arr *[80000]int) {
 	//定义左边界
 	l := left
 	//定义右边届
@@ -68,8 +82,8 @@ func quickSort(left int, right int, arr *[6]int) {
 		}
 	}
 	//将主元换到中间
-	arr[left] =  arr[l]
+	arr[left] = arr[l]
 	arr[l] = pivot
-	quickSort(left,l -1,arr)
-	quickSort(l +1 ,right,arr)
+	quickSort(left, l-1, arr)
+	quickSort(l+1, right, arr)
 }

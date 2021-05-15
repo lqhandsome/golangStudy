@@ -30,7 +30,7 @@ func (this *Stack) List() {
 		return
 	}
 	for i := this.Top; i >= 0; i-- {
-		fmt.Println(this.arr[i])
+		fmt.Print(this.arr[i],"<-")
 	}
 }
 
@@ -82,7 +82,21 @@ func Priority(oper int) int {
 	return -1
 
 }
+//讲符号出栈操作独立出来
+func operPop(numStack *Stack,operStack *Stack,tmp int) {
+	if operStack.Top != -1 && Priority(operStack.arr[operStack.Top]) >= Priority(tmp){
+		_, num1 := numStack.Pop()
+		_, num2 := numStack.Pop()
+		_, oper := operStack.Pop()
+		result := Cal(num1, num2, oper)
+		numStack.Push(result)
+		operPop(numStack,operStack,tmp)
+	} else {
+		operStack.Push(tmp)
+	}
+}
 func main() {
+	// 42 => * ;43 => +;45 => -;47 => /;
 	//数字栈
 	numStack := &Stack{
 		MaxTop: 20,
@@ -95,7 +109,7 @@ func main() {
 		Top:    -1,
 	}
 
-	exp := "8+2*6/3-2*2*2+5+1"
+	exp := "8+2*6/3-2*2*2+5+1+5/5"
 	// index = 0
 	index := 0
 	var num1, num2, oper, result int
@@ -109,21 +123,11 @@ func main() {
 			if operStack.Top == -1 {
 				operStack.Push(tmp)
 			} else {
-				if Priority(operStack.arr[operStack.Top]) >= Priority(tmp) {
-					_, num1 = numStack.Pop()
-					_, num2 = numStack.Pop()
-					_, oper = operStack.Pop()
-					result = Cal(num1, num2, oper)
-					numStack.Push(result)
-					operStack.Push(tmp)
-				} else {
-					operStack.Push(tmp)
-				}
+				operPop(numStack,operStack,tmp)
 			}
 		} else {
 			//是数字
 			val,_ := strconv.ParseInt(exp[index:index+1],10,64)
-			//fmt.Printf("%T%v\n",val,val)
 			numStack.Push(int(val))
 		}
 		index++
