@@ -12,7 +12,6 @@ type HeroNode struct {
 	name     string
 	next     *HeroNode //表示指向下一个节点
 }
-
 func main() {
 	//创建一个头节点
 	head := &HeroNode{}
@@ -108,3 +107,11 @@ func DeleteHeroNode(head *HeroNode,no int) (err error) {
 	}
 	return errors.New("没有找到对应的元素")
 }
+
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
