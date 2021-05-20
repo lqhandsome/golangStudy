@@ -3,11 +3,12 @@ package main
 import "fmt"
 
 func main() {
-	arr := [9]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
-	fmt.Println(arr[(1+2)/2])
-	index := midFind(arr, 4)
-	fmt.Println(index)
-	fmt.Println(cursion(arr, 1))
+	arr := [9]int{1, 2, 3, 3, 3, 3, 7, 8, 9}
+	//fmt.Println(arr[(1+2)/2])
+	//index := midFind(arr, 4)
+	//fmt.Println(index)
+	//fmt.Println(cursion(arr, 1))
+	fmt.Println(FindFirstValue(arr, 3))
 }
 
 func midFind(arr [9]int, n int) (index int) {
@@ -30,7 +31,6 @@ func midFind(arr [9]int, n int) (index int) {
 func cursion(arr [9]int, n int) int {
 	return search(arr, 0, len(arr)-1, n)
 }
-
 func search(arr [9]int, left int, right int, val int) int {
 	if left > right {
 		return -1
@@ -46,5 +46,40 @@ func search(arr [9]int, left int, right int, val int) int {
 		right = mid - 1
 		return search(arr, left, right, val)
 	}
+
+}
+
+func FindFirstValue(arr [9]int, value int) (index int) {
+	l := 0
+	r := len(arr) - 1
+	var mid int
+	for l <= r {
+		//{1, 2, 3, 3, 3, 6, 7, 8, 9}
+		mid = l + ((r - l) >> 1)
+		if arr[mid] < value {
+			l = mid + 1
+		}
+		//查找第一个值等于给定值
+		//if arr[mid] == value {
+		//	if mid == 0 || arr[mid-1] != value {
+		//		return mid
+		//	}
+		//	r = mid -1
+		//}
+
+		//查找最后一个值等于给定值
+		if arr[mid] == value {
+			if mid == len(arr) - 1 || arr[mid + 1] != value {
+				 return mid
+			}
+			l = mid + 1
+		}
+		if arr[mid] > value {
+			r = mid - 1
+		}
+
+	}
+
+	return -1
 
 }
