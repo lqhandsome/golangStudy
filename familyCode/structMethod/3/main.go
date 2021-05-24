@@ -9,6 +9,7 @@ func main()  {
 	person.name = "LQ"
 	person.updateName("hello world")
 	//fmt.Println(person)
+
 	var p Person
 	p.name = "1"
 	//fmt.Printf("%p,%T,%v\n",person,person,person)
