@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ea8f2c2-b329-46da-a8a0-8db0ad3b35f4" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/../project31EveryWeek/5_25/link/circelLink/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../project31EveryWeek/5_25/link/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../project31EveryWeek/5_25/link/几个常见链表算法题/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../project31EveryWeek/5_25/queue/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-    </list>
+    <list default="true" id="0ea8f2c2-b329-46da-a8a0-8db0ad3b35f4" name="默认的" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,6 +41,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
