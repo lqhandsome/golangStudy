@@ -8,7 +8,7 @@ func main() {
 	fmt.Println(xibao(5))
 }
 
-//数组 全排列
+//数组 0全排列
 //k代表要处理的数组个数
 func printArray(arr [5]int, len int, k int) {
 	if k == 1 {
