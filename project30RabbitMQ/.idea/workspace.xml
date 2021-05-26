@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ea8f2c2-b329-46da-a8a0-8db0ad3b35f4" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/../project31EveryWeek/5_25/link/circelLink/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../project31EveryWeek/5_25/link/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../project31EveryWeek/5_25/link/几个常见链表算法题/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../project31EveryWeek/5_25/queue/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/day2/direct1/consumer/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/day2/direct1/producer/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/day2/fonout/consumer/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/day2/fonout/producer/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/day2/topic/consumer/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/day2/topic/producer/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../unredo/channel/day1/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project29DataStructure/tree/redBlackTree/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../project29DataStructure/tree/redBlackTree/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/day1/consumer/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/day1/consumer/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/day1/producer/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/day1/producer/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +37,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/day2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\project\gocode\src\go_code\project30RabbitMQ\day2" />
+      <recent name="D:\project\gocode\src\go_code\project30RabbitMQ" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\project\gocode\src\go_code\project30RabbitMQ\day2\fonout" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">

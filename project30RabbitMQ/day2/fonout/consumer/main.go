@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/streadway/amqp"
 	"log"
 )
@@ -14,17 +13,34 @@ func main() {
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
-	q, err := ch.QueueDeclare(
-		"hello", // name
-		false,   // durable
+	q1, err := ch.QueueDeclare(
+		"queue1", // name
+		true,   // durable
+		false,   // delete when usused
+		false,   // exclusive
+		false,   // no-wait
+		nil,     // arguments
+	)
+	q2, err := ch.QueueDeclare(
+		"queue3", // name
+		true,   // durable
 		false,   // delete when usused
 		false,   // exclusive
 		false,   // no-wait
 		nil,     // arguments
 	)
 	failOnError(err, "Failed to declare a queue")
-	msgs, err := ch.Consume(
-		q.Name, // queue
+	msgs1, err := ch.Consume(
+		q1.Name, // queue
+		"",     // consumer
+		true,   // auto-ack
+		false,  // exclusive
+		false,  // no-local
+		false,  // no-wait
+		nil,    // args
+	)
+	msgs2, err := ch.Consume(
+		q2.Name, // queue
 		"",     // consumer
 		true,   // auto-ack
 		false,  // exclusive
@@ -36,9 +52,13 @@ func main() {
 
 	forever := make(chan bool)
 	go func() {
-		for d := range msgs {
-			fmt.Println(1)
-			log.Printf("Received a message: %s", d.Body)
+		for d := range msgs1 {
+			log.Printf("q1Received a message: %s", d.Body)
+		}
+	}()
+	func() {
+		for d := range msgs2 {
+			log.Printf("q2Received a message: %s", d.Body)
 		}
 	}()
 

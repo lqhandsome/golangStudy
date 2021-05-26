@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/streadway/amqp"
 	"log"
 )
@@ -15,8 +14,8 @@ func main() {
 	defer ch.Close()
 
 	q, err := ch.QueueDeclare(
-		"hello", // name
-		false,   // durable
+		"queue1", // name
+		true,   // durable
 		false,   // delete when usused
 		false,   // exclusive
 		false,   // no-wait
@@ -37,7 +36,6 @@ func main() {
 	forever := make(chan bool)
 	go func() {
 		for d := range msgs {
-			fmt.Println(1)
 			log.Printf("Received a message: %s", d.Body)
 		}
 	}()

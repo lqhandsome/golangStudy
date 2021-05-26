@@ -18,20 +18,13 @@ func main() {
 	ch, err := conn.Channel()
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
-	q, err := ch.QueueDeclare(
-		"hello", // name
-		false,   // durable
-		false,   // delete when unused
-		false,   // exclusive
-		false,   // no-wait
-		nil,     // arguments
-	)
+
 	failOnError(err, "Failed to declare a queue")
 
-	body := "Hello LQ!"
+	body := "这是route_exchange"
 	err = ch.Publish(
-		"",     // exchange
-		q.Name, // routing key
+		"route_exchange",     // exchange
+		"email", // routing key
 		false,  // mandatory
 		false,  // immediate
 		amqp.Publishing {
