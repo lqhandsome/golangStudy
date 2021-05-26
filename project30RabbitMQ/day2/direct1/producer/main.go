@@ -19,8 +19,8 @@ func main() {
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 	q, err := ch.QueueDeclare(
-		"hello", // name
-		false,   // durable
+		"queue1", // name
+		true,   // durable
 		false,   // delete when unused
 		false,   // exclusive
 		false,   // no-wait
@@ -28,9 +28,9 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	body := "Hello LQ!"
+	body := "这是fonout-exchange"
 	err = ch.Publish(
-		"",     // exchange
+		"fonout-exchange",     // exchange
 		q.Name, // routing key
 		false,  // mandatory
 		false,  // immediate
