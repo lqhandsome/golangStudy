@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="0ea8f2c2-b329-46da-a8a0-8db0ad3b35f4" name="默认的" comment="" />
+=======
     <list default="true" id="0ea8f2c2-b329-46da-a8a0-8db0ad3b35f4" name="默认的" comment="">
       <change afterPath="$PROJECT_DIR$/day3CreateExchangeAndQueue/createExchange/consumer/main.go" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/day3CreateExchangeAndQueue/createExchange/producer/main.go" afterDir="false" />
@@ -14,6 +17,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/day2/topic/consumer/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/day2/topic/consumer/main.go" afterDir="false" />
     </list>
+>>>>>>> 15cc7ec598247d898a2b31217e15896a87924bb0
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
