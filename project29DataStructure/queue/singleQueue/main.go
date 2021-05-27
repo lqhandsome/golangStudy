@@ -79,5 +79,4 @@ func (queue *Queue) ShowQueue() {
 		fmt.Printf("array[%d]=%d\t", i, queue.arr[i])
 	}
 	fmt.Println()
-
 }
