@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/streadway/amqp"
 	"log"
+	"time"
 )
 
 func main() {
@@ -21,15 +22,7 @@ func main() {
 		false,   // no-wait
 		nil,     // arguments
 	)
-	q2, err := ch.QueueDeclare(
-		"queue5", // name找不到队列不会自动创建
-		true,   // durable
-		false,   // delete when usused
-		false,   // exclusive
-		false,   // no-wait
-		nil,     // arguments
-	)
-	failOnError(err, "Failed to declare a queue")
+
 	msgs1, err := ch.Consume(
 		q1.Name, // queue
 		"",     // consumer
@@ -39,28 +32,17 @@ func main() {
 		false,  // no-wait
 		nil,    // args
 	)
-	msgs2, err := ch.Consume(
-		q2.Name, // queue
-		"",     // consumer
-		true,   // auto-ack
-		false,  // exclusive
-		false,  // no-local
-		false,  // no-wait
-		nil,    // args
-	)
+
 	failOnError(err, "Failed to register a consumer")
 
 	forever := make(chan bool)
-	go func() {
+	func() {
 		for d := range msgs1 {
+			time.Sleep(time.Second / 2)
 			log.Printf("q1Received a message: %s", d.Body)
 		}
 	}()
-	func() {
-		for d := range msgs2 {
-			log.Printf("q2Received a message: %s", d.Body)
-		}
-	}()
+
 
 	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
 	<-forever
