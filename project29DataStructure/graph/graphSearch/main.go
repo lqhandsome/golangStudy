@@ -28,8 +28,8 @@ func main() {
 		{4, 7},
 		{5, 6},
 	}
-	bfs(graph,3,6)
-	dfs(graph,3,6)
+	//bfs(graph,3,6)
+	dfs(graph, 0, 6)
 
 }
 
@@ -47,7 +47,7 @@ func bfs(graph [8][]int, s int, t int) {
 	visited := [len(graph)]bool{}
 	//用来保存该节点已经被访问,但是指向的节点还没被访问的节点
 	queue := &Queue{
-		arr:[8]int{-1,-1,-1,-1,-1,-1,-1},
+		arr: [8]int{-1, -1, -1, -1, -1, -1, -1},
 	}
 	queue.PushQueue(s)
 	visited[s] = true
@@ -62,7 +62,7 @@ func bfs(graph [8][]int, s int, t int) {
 			if !visited[tmp] {
 				//记录tmp是从哪里来的
 				prev[tmp] = w
-				if tmp  == t{
+				if tmp == t {
 					fmt.Println(prev)
 					fmt.Println(visited)
 					return
@@ -76,37 +76,40 @@ func bfs(graph [8][]int, s int, t int) {
 		}
 	}
 }
+
 var found bool
-func dfs(graph [8][]int, s int, t int)  {
+
+func dfs(graph [8][]int, s int, t int) {
+
+	var visited = [8]bool{}
+	 prev := make([]int,8)
 	found = false
 	if s == t {
-		fmt.Println(1111)
 		return
 	}
-	var prev [len(graph)]int
 	for i := 0; i < 8; i++ {
 		prev[i] = -1
 	}
 
 	//保存一个节点是否访问过,访问过为-1
-	visited := [len(graph)]bool{}
-	recurDFS(&graph,s,t,&visited,&prev)
+	recurDFS(graph, s, t, &visited, prev)
 	fmt.Println(prev)
 }
-func recurDFS(graph *[8][]int,w int , t int,visited *[8]bool,prev *[8]int) {
-	if w ==t {
+func recurDFS(graph [8][]int, w int, t int, visited *[8]bool, prev []int) {
+	fmt.Println(graph,w,t,visited,prev,len(graph[w]))
+	visited[w]  = true
+	if w == t {
 		found = true
 		return
 	}
-	for i := 0; i < len(graph[w]);i++ {
+	for i := 0; i < len(graph[w]); i++ {
 		tmp := graph[w][i]
 		if !visited[tmp] {
 			prev[tmp] = w
-			recurDFS(graph,tmp,t,visited,prev)
+			recurDFS(graph, tmp, t, visited, prev)
 		}
 	}
 }
-
 
 func showList(graph [8][]int) {
 	for i := 0; i < len(graph); i++ {
@@ -147,4 +150,3 @@ func (queue *Queue) ShowQueue() {
 	}
 	fmt.Println()
 }
-
