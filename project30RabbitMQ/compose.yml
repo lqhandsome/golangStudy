@@ -1,0 +1,35 @@
+version: '2.0'
+
+services: 1.0
+  rabbit01:
+    image: rabbitmq:3-management
+    container_name: rabbit01
+    hostname: rabbit01
+    ports:
+      - 15672:15672
+      - 5672:5672
+      - 25672:25672
+    expose:
+      - 15672
+      - 5672
+      - 25672
+    privileged: true
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+  rabbit02:
+    image: rabbitmq:3-management
+    container_name: rabbit02
+    hostname: rabbit02
+    ports:
+      - 15673:15672
+      - 5673:5672
+      - 25673:25672
+    expose:
+      - 15672
+      - 5672
+      - 25672
+    privileged: true
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin

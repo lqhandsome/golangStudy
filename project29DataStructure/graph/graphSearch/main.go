@@ -28,7 +28,7 @@ func main() {
 		{4, 7},
 		{5, 6},
 	}
-	//bfs(graph,3,6)
+	//bfs(graph,0,6)
 	dfs(graph, 0, 6)
 
 }
@@ -82,7 +82,7 @@ var found bool
 func dfs(graph [8][]int, s int, t int) {
 
 	var visited = [8]bool{}
-	 prev := make([]int,8)
+	prev := make([]int,8)
 	found = false
 	if s == t {
 		return
@@ -96,10 +96,8 @@ func dfs(graph [8][]int, s int, t int) {
 	fmt.Println(prev)
 }
 func recurDFS(graph [8][]int, w int, t int, visited *[8]bool, prev []int) {
-	fmt.Println(graph,w,t,visited,prev,len(graph[w]))
 	visited[w]  = true
 	if w == t {
-		found = true
 		return
 	}
 	for i := 0; i < len(graph[w]); i++ {
