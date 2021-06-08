@@ -25,14 +25,14 @@ func main() {
 
 }
 
-func SelectSort(arr *[80000]int) {
-	l := len(*arr)
+func SelectSort(arr []int) {
+	l := len(arr)
 	for i := 0; i < l; i++ {
 		for j := i + 1; j < l; j++ {
-			if (*arr)[i] > (*arr)[j] {
-				tmp := (*arr)[i]
-				(*arr)[i] = (*arr)[j]
-				(*arr)[j] = tmp
+			if (arr)[i] > (arr)[j] {
+				tmp := (arr)[i]
+				(arr)[i] = (arr)[j]
+				(arr)[j] = tmp
 			}
 		}
 	}
@@ -87,3 +87,4 @@ func quickSort(left int, right int, arr *[80000]int) {
 	quickSort(left, l-1, arr)
 	quickSort(l+1, right, arr)
 }
+
