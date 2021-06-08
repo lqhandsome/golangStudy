@@ -1,10 +1,11 @@
 version: '2.0'
 
-services: 1.0
+services:
   rabbit01:
     image: rabbitmq:3-management
     container_name: rabbit01
     hostname: rabbit01
+    restart: always
     ports:
       - 15672:15672
       - 5672:5672
@@ -13,14 +14,20 @@ services: 1.0
       - 15672
       - 5672
       - 25672
+    networks:
+      net1:
+        ipv4_address: 172.17.0.10
     privileged: true
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
+      RABBITMQ_ERLANG_COOKIE: rabbitmq_cookie
+
   rabbit02:
     image: rabbitmq:3-management
     container_name: rabbit02
     hostname: rabbit02
+    restart: always
     ports:
       - 15673:15672
       - 5673:5672
@@ -29,14 +36,41 @@ services: 1.0
       - 15672
       - 5672
       - 25672
+    networks:
+      net1:
+        ipv4_address: 172.17.0.11
     privileged: true
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
-  卡号：6217002580001970
-  打印支行：中国建设银行嘉兴秀洲支行
-  打印时间：2021年5月31日12:15:37
-  流水开始时间到结束时间： 2020-4 到2021-5
-  每月工资日：每月20号
-  每月税后工资金额： 12000浮动10%
-  公司名称：嘉兴云切供应链管理有限公司
+      RABBITMQ_ERLANG_COOKIE: rabbitmq_cookie
+
+  rabbit03:
+    image: rabbitmq:3-management
+    container_name: rabbit03
+    restart: always
+    hostname: rabbit03
+    ports:
+      - 15674:15672
+      - 5674:5672
+      - 25674:25672
+    expose:
+      - 15672
+      - 5672
+      - 25672
+    networks:
+      net1:
+        ipv4_address: 172.17.0.12
+    privileged: true
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+      RABBITMQ_ERLANG_COOKIE: rabbitmq_cookie
+
+networks:
+  net1:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.17.0.0/16
+          gateway: 172.17.0.1
