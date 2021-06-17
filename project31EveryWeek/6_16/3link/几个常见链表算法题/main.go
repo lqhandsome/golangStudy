@@ -36,15 +36,16 @@ func main() {
 	one.next = two
 	head.next = one
 	//four.next = two
-	 //p := detectCycle(head)
-	 //fmt.Println(detectCycleMap(head))
-	//ShowLink(head)
+	//p := detectCycle(head)
+	//fmt.Println(detectCycleMap(head))
+	ShowLink(head)
 	//newHead := reverseList(head)
 	//ShowLink(newHead)
 	//newHead2 := reverseListCursion(head)
 	//ShowLink(newHead2)
-	fmt.Println(MidNode(head))
-
+	//fmt.Println(MidNode(head))
+	newHead := removeNthFromEnd(head,4)
+	ShowLink(newHead)
 }
 
 //1.反转链表
@@ -52,7 +53,7 @@ func reverseList(head *List) (newHead *List) {
 	if head == nil || head.next == nil {
 		return head
 	}
-	var prev  = &List{}
+	var prev = &List{}
 	for head != nil {
 		next := head.next
 		head.next = prev
@@ -78,7 +79,7 @@ func detectCycle(head *List) *List {
 	if head == nil || head.next == nil {
 		return nil
 	}
-	slow , fast := head.next,head.next.next
+	slow, fast := head.next, head.next.next
 	for slow != nil {
 		if slow == fast {
 			fmt.Println(slow.val)
@@ -102,7 +103,7 @@ func detectCycleMap(head *List) *List {
 	seen := map[*List]int{}
 	tmp := head
 	for tmp != nil {
-		_,ok := seen[tmp]
+		_, ok := seen[tmp]
 		if ok {
 			return tmp
 		} else {
@@ -115,6 +116,26 @@ func detectCycleMap(head *List) *List {
 
 //4.删除链表的倒数第n个节点
 func removeNthFromEnd(head *List, n int) *List {
+	if head == nil {
+		return nil
+	}
+	//定义快慢指针
+	slow, fast := head, head
+
+	//先让快指针走n步
+	for n > 0 {
+		fast = fast.next
+		n--
+	}
+	//快指针走到了最后代表要删除的是头结点
+	if fast == nil {
+		return head.next
+	}
+	for fast != nil && fast.next != nil {
+		fast = fast.next
+		slow = slow.next
+	}
+	slow.next = slow.next.next
 	return head
 }
 
@@ -122,7 +143,7 @@ func removeNthFromEnd(head *List, n int) *List {
 func ShowLink(head *List) {
 	tmp := head
 	for tmp != nil {
-		fmt.Print(tmp.val,"->")
+		fmt.Print(tmp.val, "->")
 		tmp = tmp.next
 	}
 	fmt.Println("nil")
@@ -133,8 +154,8 @@ func MidNode(head *List) *List {
 	if head == nil || head.next == nil {
 		return head
 	}
-	slow,fast := head,head
-	for fast.next.next != nil{
+	slow, fast := head, head
+	for fast.next.next != nil {
 		slow = slow.next
 		fast = fast.next.next
 	}
