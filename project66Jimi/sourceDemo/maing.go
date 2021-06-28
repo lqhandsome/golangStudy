@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	//a := make(map[int]int,100)
 	http.HandleFunc("/hello",sayHello)
 	err := http.ListenAndServe(":9090",nil)
 	if err != nil {
