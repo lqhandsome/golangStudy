@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 )
 
 type Graph struct {
@@ -35,61 +34,16 @@ func main() {
 }
 
 func bfs(graph [8][]int, t int, s int) {
-	if t == s  {
-		return
-	}
-	//定义一个队列来接收已经被访问但还没有被访问的子节点
-	queue := Queue{
-		maxSize: 8,
-		arr:     [8]int{},
-		front:   0,
-		rear:    0,
-	}
-	//定义一个用来接收上一个节点的元素
-	prev := [8]int{-1,-1,-1,-1,-1,-1,-1,-1}
-	//定义一个数组保存节点是否访问过
-	visited := [8]bool{}
-	queue.PushQueue(t)
-	visited[t] = true
-	for queue.front != queue.rear {
-
-	}
 }
 
 var found bool
 
 func dfs(graph [8][]int, t int, s int) {
-	if t == s {
-		return
-	}
 
-	//用来记录这个节点是否访问过
-	visited := [8]bool{}
-	//用来保存路径
-	prev := make([]int,8)
-	for i := 0; i < len(graph); i++ {
-		prev[i] = -1
-	}
-	visited[t]  = true
-	singDfs(graph,t,s,&visited,prev)
-	fmt.Println(prev)
 }
 func singDfs(graph [8][]int, w int, s int, visited *[8]bool, prev []int) {
-	if found {
-		return
-	}
-	for i := 0 ; i < len(graph[w]);i++ {
-		tmp := graph[w][i]
-		if !visited[tmp] {
-			prev[tmp] = w
-			if tmp == s {
-				found = true
-				return
-			}
-			visited[tmp] = true
-			singDfs(graph,tmp,s,visited,prev)
-		}
-	}
+
+
 }
 
 func (queue *Queue) PushQueue(val int) (err error) {

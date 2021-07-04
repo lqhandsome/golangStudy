@@ -12,6 +12,7 @@ var (
 )
 
 func main() {
+	arr = make([]int,8)
 	eightQueue(0)
 	fmt.Println(num)
 }
@@ -22,9 +23,9 @@ func eightQueue(row int) {
 		print(arr)
 		return
 	}
-	for j := 0; j < 8; j++ {
-		if isOk(row, j) {
-			arr[row] = j
+	for i := 0;i < 8 ;i++ {
+		if isOk(row,i)  {
+			arr[row] = i
 			eightQueue(row + 1)
 		}
 	}
@@ -32,20 +33,19 @@ func eightQueue(row int) {
 
 //判断一个位置可以不可以放
 func isOk(row int, clo int) bool {
-	//这一列的左边和右边
-	left := clo - 1
-	right := clo + 1
-	for i := row; i > 0; row-- {
-		//上面有元素
-		if arr[row -1] == clo {
+	left,right := clo -1,clo + 1
+	for i := row -1;i >= 0;i-- {
+		//判断上面
+		if arr[i] == clo {
 			return false
 		}
-		//左上角
-		if left >= 0 &&arr[row -1]  == left {
+		//判断左上角
+		if left >= 0 && arr[i] == left {
 			return false
 		}
-		//右上角
-		if right <= 8 && arr[row-1] == right {
+		//判断右上角
+		//判断左上角
+		if right <=7 && arr[i] == right {
 			return false
 		}
 		left--

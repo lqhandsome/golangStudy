@@ -1,27 +1,18 @@
 package main
-import (
-	"fmt"
-	"io/ioutil"
-	"log"
-	"os"
-)
+
+import "fmt"
+
 func main() {
-	pwd, _ := os.Getwd()
-	//获取文件或目录相关信息
-	fileInfoList, err := ioutil.ReadDir(pwd)
-	if err != nil {
-		log.Fatal(err)
+	num1,num2 := 111,899
+	for num2 != 0 {
+		tmp := num1
+		num1 = num2 ^ num1
+		num2 = (tmp & num2) << 1
 	}
-	writeFile := "图纸名.txt"
-	file ,err := os.OpenFile(writeFile,os.O_APPEND|os.O_CREATE,777)
-	defer file.Close()
-	if err != nil {
-		fmt.Println("err=",err)
-		return
-	}
-	fmt.Println(len(fileInfoList))
-	for i := range fileInfoList {
-		file.Write([]byte(fileInfoList[i].Name()))
-		file.Write([]byte{'\n'})
-	}
+	fmt.Println(num1)
+}
+
+func modify(args [3][]string) {
+	//args[1] = []string{"1","2","3"}
+	args[1][1] = "1"
 }

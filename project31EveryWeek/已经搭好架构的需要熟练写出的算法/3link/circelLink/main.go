@@ -5,50 +5,38 @@ import (
 	"fmt"
 )
 
-type CatNode struct {
-	no   int
-	name string
-	next *CatNode
+type Link struct {
+	val  int
+	next *Link
 }
 
-//循环链表
+//环形链表
 func main() {
-	head := &CatNode{}
-	cat1 := &CatNode{
-		1,
-		"小花",
-		nil,
-	}
-	cat2 := &CatNode{
-		2,
-		"小米",
-		nil,
-	}
-	cat3 := &CatNode{
-		3,
-		"小玉",
-		nil,
-	}
 
-	cat4 := &CatNode{
-		4,
-		"小4",
-		nil,
+	head := &Link{
+		val: -1,
 	}
 }
 
-//环形链表加入一个节点
-func insertNode(head *CatNode, node *CatNode) error {
+//插入一个节点
+func (head *Link)Insert( insertVal *Link) (err error) {
+
+}
+
+//显示链表所有数据
+func ShowLink(head *Link) {
 
 }
 
 //删除一个节点
-func delete(head *CatNode, no int) (newHeadNode *CatNode, err error) {
-
+func (head *Link)Delete( no int) (newHead *Link,err error) {
 
 }
 
-//遍历链表
-func ShowCircelLink(head *CatNode) {
-
+func testDefer(t int) int {
+	defer  func() {
+		//x += 100
+		t += 100
+	}()
+	return  t
 }

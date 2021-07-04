@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 )
 
 type Queue struct {
@@ -18,26 +19,21 @@ func main() {
 }
 
 //判断队列是否已满
-func IsFull(queue *Queue) bool {
-
+func (queue *Queue) IsFull() bool {
 }
 
 //判断队列是否为空
-func IsEmpty(queue *Queue) bool {
-
+func (queue *Queue) IsEmpty() bool {
 }
 
 //插入一个元素
-func Push(queue *Queue, val int) (err error) {
-
+func (queue *Queue)Push( val int) (err error) {
 }
 
 //获取一个元素
-func Pop(queue *Queue) (val int, er error) {
-
+func (queue *Queue)Pop() (val int, er error) {
 }
 
 //判断队列的长度
-func QueueList(queue *Queue) (val int,err error) {
-
+func (queue *Queue)QueueList() (val int) {
 }
